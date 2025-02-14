@@ -8,8 +8,7 @@ from gtts import gTTS
 
 # Configure API Key
 load_dotenv()
-GEMINI_API_KEY = os.getenv("gemini_api_key")
-
+GEMINI_API_KEY = st.secrets["google"]["gemini_api_key"]
 # Load Whisper AI (Speech-to-Text)
 model = whisper.load_model("small")
 
