@@ -19,19 +19,27 @@ model1 = genai.GenerativeModel("gemini-1.5-flash")
 # Function to Improve Lyrics using Gemini AI
 def improve_lyrics_with_gemini(lyrics, genre, language):
     try:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
+        url = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
         headers = {"Content-Type": "application/json"}
         data = {
-            "contents": [{"parts": [{"text": f"Convert these lyrics into a well-structured {genre} song in {language}: {lyrics}"}]}]
+            "contents": [{"parts": [{"text": f"Rewrite these lyrics as a well-structured {genre} song in {language}: \n\n{lyrics}"}]}]
         }
         response = requests.post(url, json=data, headers=headers)
+
         if response.status_code == 200:
             response_json = response.json()
-            return response_json.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+            # Extracting correct text output from response
+            candidates = response_json.get("candidates", [])
+            if candidates:
+                return candidates[0]["content"]["parts"][0]["text"]
+            else:
+                return "⚠️ AI did not generate a response."
         else:
             return f"API Error: {response.status_code} - {response.text}"
+
     except Exception as e:
         return f"Error: {str(e)}"
+
 
 # Function to send lyrics to Suno AI
 def generate_song_with_suno(lyrics):
