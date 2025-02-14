@@ -11,11 +11,11 @@ load_dotenv()
 GEMINI_API_KEY = os.getenv("gemini")
 
 # Load Whisper AI (Speech-to-Text)
-model = whisper.load_model("large")
+model = whisper.load_model("small")
 
 # Gemini AI Model
 genai.configure(api_key=GEMINI_API_KEY)
-model1 = genai.GenerativeModel("gemini-pro")
+model1 = genai.GenerativeModel("gemini-1.5-flash")
 
 # Function to Improve Lyrics using Gemini AI
 def improve_lyrics_with_gemini(lyrics, genre, language):
