@@ -19,7 +19,7 @@ model1 = genai.GenerativeModel("gemini-1.5-flash")
 # Function to Improve Lyrics using Gemini AI
 def improve_lyrics_with_gemini(lyrics, genre, language):
     try:
-        url = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
+        url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
         headers = {"Content-Type": "application/json"}
         data = {
             "contents": [{"parts": [{"text": f"Rewrite these lyrics as a well-structured {genre} song in {language}: \n\n{lyrics}"}]}]
